@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { HashRouter, Routes, Route } from "react-router-dom";
+import Booking from "./pages/booking";
+import BookingDate from "./pages/bookingDate";
+import BookingHour from "./pages/bookingHour";
+import SignIn from "./pages/signIn";
+import BookingService from "./pages/bookingService";
+import BookingProfessional from "./pages/bookingProfessional";
+import NotFound from "./pages/notFound";
+import Home from "./pages/home";
+import BookingSummary from "./pages/bookingSummary";
+import ShopSelection from "./pages/bookingShop";
+import Register from "./pages/register";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<ShopSelection />} />
+          <Route path="/booking-start" element={<Booking />} />
+          <Route path="/booking-service" element={<BookingService />} />
+          <Route
+            path="/booking-professional"
+            element={<BookingProfessional />}
+          />
+          <Route path="/booking-date" element={<BookingDate />} />
+          <Route path="/booking-hour" element={<BookingHour />} />
+          <Route path="/booking-summary" element={<BookingSummary />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </HashRouter>
     </div>
   );
 }
