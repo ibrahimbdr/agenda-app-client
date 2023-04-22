@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const BookingDate = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-
+  const params = useParams();
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Selected date:", selectedDate);
@@ -43,7 +43,7 @@ const BookingDate = () => {
         </div>
       </form>
       {selectedDate && (
-        <Link to={`/booking-hour`}>
+        <Link to={`/${params.id}/booking-hour`}>
           <button className="bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-medium py-4 px-8 rounded-full mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Continue
           </button>

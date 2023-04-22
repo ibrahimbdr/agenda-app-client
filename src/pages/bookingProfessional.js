@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const BookingProfessional = () => {
+  const params = useParams();
+
   // example list of professionals
   const [professionals, setProfessionals] = useState([
     { id: 1, name: "Professional 1", description: "description" },
@@ -25,7 +27,7 @@ const BookingProfessional = () => {
               {professionals.map((professional) => (
                 <li key={professional.id} className="py-4">
                   <Link
-                    to={`/booking-date`}
+                    to={`/${params.id}/booking-date`}
                     className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out"
                   >
                     <div className="flex items-center space-x-4">

@@ -19,15 +19,15 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/shops" element={<ShopSelection />} />
           <Route path="/shops/:id" element={<Booking />} />
-          <Route path="/booking-service" element={<BookingService />} />
+          <Route path="/:id/booking-service" element={<BookingService />} />
           <Route
-            path="/booking-professional"
+            path="/:id/booking-professional"
             element={<BookingProfessional />}
           />
-          <Route path="/booking-date" element={<BookingDate />} />
-          <Route path="/booking-hour" element={<BookingHour />} />
-          <Route path="/booking-summary" element={<BookingSummary />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/:id/booking-date" element={<BookingDate />} />
+          <Route path="/:id/booking-hour" element={<BookingHour />} />
+          <Route path="/:id/booking-summary" element={<BookingSummary />} />
+          <Route path="/:id/signin" element={<SignIn />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

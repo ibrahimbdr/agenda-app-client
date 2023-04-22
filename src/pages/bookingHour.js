@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const BookingHour = () => {
   const [selectedHour, setSelectedHour] = useState(null);
   const [isHourSelected, setIsHourSelected] = useState(false);
-
+  const params = useParams();
   const handleHourChange = (event) => {
     setSelectedHour(event.target.value);
     setIsHourSelected(true);
@@ -183,7 +183,7 @@ const BookingHour = () => {
       </form>
       {isHourSelected && (
         <div className="flex flex-col items-center justify-center mt-4">
-          <Link to="/booking-summary">
+          <Link to={`/${params.id}/booking-summary`}>
             <button
               type="submit"
               className="bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-medium py-4 px-8 rounded-full mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

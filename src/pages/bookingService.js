@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const BookingService = () => {
+  const params = useParams();
   const [selectedServices, setSelectedServices] = useState([]);
 
   const handleServiceSelection = (service) => {
@@ -62,7 +63,7 @@ const BookingService = () => {
         ))}
       </div>
       {selectedServices.length > 0 && (
-        <Link to={`/booking-professional`}>
+        <Link to={`/${params.id}/booking-professional`}>
           <button className="bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-medium py-4 px-8 rounded-full mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Continue
           </button>

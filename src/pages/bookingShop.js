@@ -86,7 +86,7 @@ const ShopSelection = () => {
   ];
 
   const handleShopSelection = (shop) => {
-    console.log(`User selected shop with ID ${shop.id}`);
+    // console.log(`User selected shop with ID ${shop.id}`);
     const shopUrlSlug = decodeURIComponent(shop.urlSlug);
     setSelectedShop(shop);
     navigate(`/shops/${shopUrlSlug}`);

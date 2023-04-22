@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Booking = () => {
+  const params = useParams();
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <div className="max-w-sm rounded overflow-hidden shadow-lg mb-4">
@@ -11,12 +12,12 @@ const Booking = () => {
         Start Booking Now !
       </h1>
       <div className="flex items-center justify-center">
-        <Link to="/booking-service">
+        <Link to={`/${params.id}/booking-service`}>
           <button className="bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-medium py-4 px-8 rounded-full mr-6 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Book Now
           </button>
         </Link>
-        <Link to="/signin">
+        <Link to={`/${params.id}/signIn`}>
           <button className="bg-gray-700 hover:bg-gray-800 text-white text-xl font-medium py-4 px-8 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
             Sign In
           </button>
