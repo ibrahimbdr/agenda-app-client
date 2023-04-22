@@ -2,10 +2,25 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const BookingService = () => {
-  const [selectedService, setSelectedService] = useState(null);
+  const [selectedServices, setSelectedServices] = useState([]);
 
   const handleServiceSelection = (service) => {
-    setSelectedService(service);
+    // Check if the service is already selected
+    if (
+      selectedServices.some(
+        (selectedService) => selectedService.id === service.id
+      )
+    ) {
+      // If yes, remove it from the array
+      setSelectedServices(
+        selectedServices.filter(
+          (selectedService) => selectedService.id !== service.id
+        )
+      );
+    } else {
+      // If no, add it to the array
+      setSelectedServices([...selectedServices, service]);
+    }
   };
 
   const services = [
@@ -25,7 +40,11 @@ const BookingService = () => {
           <div
             key={service.id}
             className={`bg-white rounded-lg shadow-md ${
-              selectedService?.id === service.id ? "ring-2 ring-indigo-500" : ""
+              selectedServices.some(
+                (selectedService) => selectedService.id === service.id
+              )
+                ? "ring-2 ring-indigo-500"
+                : ""
             }`}
             onClick={() => handleServiceSelection(service)}
           >
@@ -42,7 +61,7 @@ const BookingService = () => {
           </div>
         ))}
       </div>
-      {selectedService && (
+      {selectedServices.length > 0 && (
         <Link to={`/booking-professional`}>
           <button className="bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-medium py-4 px-8 rounded-full mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Continue
