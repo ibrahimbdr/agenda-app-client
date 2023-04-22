@@ -1,17 +1,23 @@
 import React from "react";
 
 const ServiceCard = ({ service }) => {
+  const cardStyle = {
+    backgroundImage: `url(${service.imageUrl})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    height: "300px",
+  };
+
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-lg">
-      <img className="w-full" src={service.imageUrl} alt={service.name} />
-      <div className="p-4">
-        <h3 className="font-bold text-lg mb-2">{service.name}</h3>
-        <p className="text-gray-700">{service.description}</p>
-        <div className="mt-4 flex justify-between items-center">
-          <p className="font-bold text-xl">${service.price}</p>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Book Now
-          </button>
+      <div style={cardStyle}>
+        <div className="p-4 bg-black bg-opacity-60 h-full flex flex-col justify-end">
+          <h3 className="font-bold text-lg mb-2 text-white">{service.name}</h3>
+          <div className="mt-4 flex justify-center">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Start Now!
+            </button>
+          </div>
         </div>
       </div>
     </div>

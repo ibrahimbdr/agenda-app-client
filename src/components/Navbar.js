@@ -56,7 +56,7 @@ function Navbar() {
             className="py-2 px-4 text-gray-800 md:mx-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
             onClick={toggleMenu}
           >
-            Professionals
+            Shops
           </Link>
           <Link
             to="#"
@@ -73,11 +73,11 @@ function Navbar() {
             Services
           </Link>
           <Link
-            to="booking"
+            to="/shops"
             className="py-2 px-4 text-white rounded-full bg-gray-800 md:mx-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
             onClick={toggleMenu}
           >
-            Book Now
+            Find Shops
           </Link>
         </div>
       </div>
@@ -95,7 +95,7 @@ function Navbar() {
           className="block py-2 px-4 text-gray-800 text-center transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
           onClick={toggleMenu}
         >
-          Professionals
+          Shops
         </Link>
         <Link
           to="#"
@@ -112,11 +112,11 @@ function Navbar() {
           Services
         </Link>
         <Link
-          to="/booking"
+          to="/shops"
           className="block py-2 px-4 mx-auto w-fit text-white rounded-full bg-gray-800 md:mx-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
           onClick={toggleMenu}
         >
-          Book Now
+          Find Shops
         </Link>
       </div>
     </nav>

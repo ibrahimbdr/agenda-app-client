@@ -4,23 +4,17 @@ const services = [
   {
     id: 1,
     name: "Service 1",
-    description: "Description of service 1",
     imageUrl: "https://via.placeholder.com/500x300",
-    price: "10",
   },
   {
     id: 2,
     name: "Service 2",
-    description: "Description of service 2",
     imageUrl: "https://via.placeholder.com/500x300",
-    price: "10",
   },
   {
     id: 3,
     name: "Service 3",
-    description: "Description of service 3",
     imageUrl: "https://via.placeholder.com/500x300",
-    price: "10",
   },
 ];
 

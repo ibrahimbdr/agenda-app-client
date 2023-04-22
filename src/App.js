@@ -16,8 +16,9 @@ function App() {
     <div>
       <HashRouter>
         <Routes>
-          <Route path="/" element={<ShopSelection />} />
-          <Route path="/booking-start" element={<Booking />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/shops" element={<ShopSelection />} />
+          <Route path="/shops/:id" element={<Booking />} />
           <Route path="/booking-service" element={<BookingService />} />
           <Route
             path="/booking-professional"
