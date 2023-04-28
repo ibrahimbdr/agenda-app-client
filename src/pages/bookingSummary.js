@@ -38,9 +38,9 @@ const BookingSummary = () => {
       })
     );
     if (localStorage.getItem("customerToken")) {
-      navigate(`/${params.id}/booking-checkout`);
+      navigate(`/shops/${params.id}/booking-checkout`);
     } else {
-      navigate(`/${params.id}/signIn`);
+      navigate(`/shops/${params.id}/signIn`);
     }
   };
   return (

@@ -21,18 +21,30 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/shops" element={<ShopSelection />} />
           <Route path="/shops/:id" element={<Booking />} />
-          <Route path="/:id/booking-service" element={<BookingService />} />
           <Route
-            path="/:id/booking-professional"
+            path="/shops/:id/booking-service"
+            element={<BookingService />}
+          />
+          <Route
+            path="/shops/:id/booking-professional"
             element={<BookingProfessional />}
           />
-          <Route path="/:id/booking-date" element={<BookingDate />} />
-          <Route path="/:id/booking-hour" element={<BookingHour />} />
-          <Route path="/:id/booking-summary" element={<BookingSummary />} />
-          <Route path="/:id/signin" element={<SignIn />} />
-          <Route path="/:id/register" element={<Register />} />
-          <Route path="/:id/booking-checkout" element={<BookingCheckout />} />
-          <Route path="/:id/booking-completed" element={<BookingCompleted />} />
+          <Route path="/shops/:id/booking-date" element={<BookingDate />} />
+          <Route path="/shops/:id/booking-hour" element={<BookingHour />} />
+          <Route
+            path="/shops/:id/booking-summary"
+            element={<BookingSummary />}
+          />
+          <Route path="/shops/:id/signin" element={<SignIn />} />
+          <Route path="/shops/:id/register" element={<Register />} />
+          <Route
+            path="/shops/:id/booking-checkout"
+            element={<BookingCheckout />}
+          />
+          <Route
+            path="/shops/:id/booking-completed"
+            element={<BookingCompleted />}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HashRouter>

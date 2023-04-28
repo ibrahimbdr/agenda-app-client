@@ -15,7 +15,7 @@ const SignIn = () => {
         console.log(response.data.token);
         localStorage.setItem("customerToken", response.data.token);
         if (localStorage.getItem("bookingInfo")) {
-          navigate(`/${params.id}/booking-checkout`);
+          navigate(`/shops/${params.id}/booking-checkout`);
         } else {
           navigate(`/shops/${params.id}/`);
         }

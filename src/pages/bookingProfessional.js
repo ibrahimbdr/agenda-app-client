@@ -27,7 +27,7 @@ const BookingProfessional = () => {
 
   const handleSelction = (pro) => {
     localStorage.setItem("professional", JSON.stringify(pro));
-    navigate(`/${params.id}/booking-date`);
+    navigate(`/shops/${params.id}/booking-date`);
   };
 
   return (

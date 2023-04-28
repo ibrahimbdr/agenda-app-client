@@ -27,7 +27,7 @@ function BookingCheckout() {
   };
 
   useEffect(() => {
-    const customerId = localStorage.getItem("customerId");
+    // const customerId = localStorage.getItem("customerId");
     instance
       .get(`/customers/id`, {
         headers: { Authorization: localStorage.getItem("customerToken") },
@@ -69,7 +69,7 @@ function BookingCheckout() {
         .then((response) => {
           console.log(response);
           localStorage.setItem("payment", "on Counter");
-          navigate(`/${params.id}/booking-completed`);
+          navigate(`/shops/${params.id}/booking-completed`);
         })
         .catch((error) => console.log(error));
     }

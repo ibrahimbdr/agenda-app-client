@@ -100,7 +100,7 @@ const BookingService = () => {
         </div>
       )}
       {selectedServices.length > 0 && (
-        <Link to={`/${params.id}/booking-professional`}>
+        <Link to={`/shops/${params.id}/booking-professional`}>
           <button className="bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-medium py-4 px-8 rounded-full mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Continue
           </button>

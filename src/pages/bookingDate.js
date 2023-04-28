@@ -12,7 +12,7 @@ const BookingDate = () => {
     e.preventDefault();
     console.log("Selected date:", selectedDate);
     localStorage.setItem("selectedDate", selectedDate);
-    navigate(`/${params.id}/booking-hour`);
+    navigate(`/shops/${params.id}/booking-hour`);
     // Implement logic to check if the selected date has any reserved appointments
     // If there are reserved appointments, show them in a div next to the date picker
     // If there are no reserved appointments, show a message saying "No Appointments"
