@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Elements,
   CardElement,
@@ -7,6 +7,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate, useParams } from "react-router-dom";
+import instance from "../axiosConfig/axiosConfig";
 
 const stripePromise = loadStripe("your_publishable_key_here");
 
@@ -17,10 +18,33 @@ function BookingCheckout() {
   const [cardErrorMessage, setCardErrorMessage] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
+  const [bookingInfo, setBookingInfo] = useState(
+    JSON.parse(localStorage.getItem("bookingInfo"))
+  );
 
   const handlePaymentOptionChange = (event) => {
     setPaymentOption(event.target.value);
   };
+
+  useEffect(() => {
+    const customerId = localStorage.getItem("customerId");
+    instance
+      .get(`/customers/id`, {
+        headers: { Authorization: localStorage.getItem("customerToken") },
+      })
+      .then((response) => {
+        const customer = response.data;
+        console.log(response.data);
+        setBookingInfo({
+          ...bookingInfo,
+          customer: customer._id,
+          dateTime: new Date(bookingInfo.dateTime),
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -38,8 +62,16 @@ function BookingCheckout() {
       }
     } else {
       // Handle payOnCounter option here
-      localStorage.setItem("payment", "on Counter");
-      navigate(`/${params.id}/booking-completed`);
+      instance
+        .post(`/appointments/`, bookingInfo, {
+          headers: { "Content-Type": "application/json" },
+        })
+        .then((response) => {
+          console.log(response);
+          localStorage.setItem("payment", "on Counter");
+          navigate(`/${params.id}/booking-completed`);
+        })
+        .catch((error) => console.log(error));
     }
   };
 

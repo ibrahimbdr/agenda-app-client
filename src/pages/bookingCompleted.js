@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import instance from "../axiosConfig/axiosConfig";
 
 function BookingCompleted() {
   const navigate = useNavigate();
@@ -9,15 +9,18 @@ function BookingCompleted() {
 
   useEffect(() => {
     const customerId = localStorage.getItem("customerId");
-    // axios
-    //   .get(`/customers/${customerId}`)
-    //   .then((response) => {
-    //     const customer = response.data;
-    //     setReservedPersonName(`${customer.firstName} ${customer.lastName}`);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
+    instance
+      .get(`/customers/id`, {
+        headers: { Authorization: localStorage.getItem("customerToken") },
+      })
+      .then((response) => {
+        const customer = response.data;
+        console.log(response.data);
+        setReservedPersonName(`${customer.name}`);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
   const handleDoneClick = () => {

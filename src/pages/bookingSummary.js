@@ -9,7 +9,7 @@ const BookingSummary = () => {
   const services = JSON.parse(localStorage.getItem("services"));
   const servicesId = [];
   services.map((service) => {
-    servicesId.push(service.id);
+    servicesId.push(service["_id"]);
   });
   const d = new Date(localStorage.getItem("dateTime"));
   const date = new Intl.DateTimeFormat(["ban", "id"]).format(d);
@@ -37,7 +37,11 @@ const BookingSummary = () => {
         dateTime: d,
       })
     );
-    navigate(`/${params.id}/booking-checkout`);
+    if (localStorage.getItem("customerToken")) {
+      navigate(`/${params.id}/booking-checkout`);
+    } else {
+      navigate(`/${params.id}/signIn`);
+    }
   };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-6">

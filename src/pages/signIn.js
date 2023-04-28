@@ -12,8 +12,13 @@ const SignIn = () => {
     instance
       .post("/customers/login", values)
       .then((response) => {
-        console.log(response);
-        navigate(`/${params.id}/booking-service`);
+        console.log(response.data.token);
+        localStorage.setItem("customerToken", response.data.token);
+        if (localStorage.getItem("bookingInfo")) {
+          navigate(`/${params.id}/booking-checkout`);
+        } else {
+          navigate(`/shops/${params.id}/`);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -26,11 +31,11 @@ const SignIn = () => {
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <h1 className="text-5xl font-extrabold mb-8 text-gray-900">Sign In</h1>
       <Formik
-        initialValues={{ phoneNumber: "" }}
+        initialValues={{ phone: "" }}
         validate={(values) => {
           const errors = {};
-          if (!values.phoneNumber) {
-            errors.phoneNumber = "Phone number is required";
+          if (!values.phone) {
+            errors.phone = "Phone number is required";
           }
           return errors;
         }}
@@ -40,19 +45,19 @@ const SignIn = () => {
           <Form className="bg-white rounded-lg shadow-lg p-8">
             <div className="mb-4">
               <label
-                htmlFor="phoneNumber"
+                htmlFor="phone"
                 className="block text-gray-700 font-bold mb-2"
               >
                 Phone Number
               </label>
               <Field
                 type="tel"
-                name="phoneNumber"
+                name="phone"
                 placeholder="Enter your phone number"
                 className="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               <ErrorMessage
-                name="phoneNumber"
+                name="phone"
                 component="div"
                 className="text-red-500 text-sm mt-1"
               />
