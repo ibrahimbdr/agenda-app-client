@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import instance from "../axiosConfig/axiosConfig";
 
 const BookingService = () => {
   const params = useParams();
   const [selectedServices, setSelectedServices] = useState([]);
+  const [servicess, setServicess] = useState([]);
+
+  useEffect(() => {
+    instance.get(`/services`).then((response) => {
+      console.log(response.data.services);
+      setServicess(response.data.services);
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log(selectedServices);
+    localStorage.setItem("services", JSON.stringify(selectedServices));
+  }, [selectedServices]);
 
   const handleServiceSelection = (service) => {
     // Check if the service is already selected
@@ -50,7 +64,7 @@ const BookingService = () => {
             onClick={() => handleServiceSelection(service)}
           >
             <img
-              src={service.image}
+              src="https://via.placeholder.com/150"
               alt={service.name}
               className="h-48 w-full object-cover"
             />

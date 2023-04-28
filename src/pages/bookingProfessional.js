@@ -1,15 +1,21 @@
-import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const BookingProfessional = () => {
   const params = useParams();
-
+  const navigate = useNavigate();
   // example list of professionals
   const [professionals, setProfessionals] = useState([
     { id: 1, name: "Professional 1", description: "description" },
     { id: 2, name: "Professional 2", description: "description" },
     { id: 3, name: "Professional 3", description: "description" },
   ]);
+
+  const handleSelction = (pro) => {
+    localStorage.setItem("professional", JSON.stringify(pro));
+    navigate(`/${params.id}/booking-date`);
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,8 +32,8 @@ const BookingProfessional = () => {
             <ul className="divide-y divide-gray-200">
               {professionals.map((professional) => (
                 <li key={professional.id} className="py-4">
-                  <Link
-                    to={`/${params.id}/booking-date`}
+                  <button
+                    onClick={() => handleSelction(professional)}
                     className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out"
                   >
                     <div className="flex items-center space-x-4">
@@ -70,7 +76,7 @@ const BookingProfessional = () => {
                         </svg>
                       </div>
                     </div>
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>

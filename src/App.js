@@ -8,7 +8,7 @@ import BookingProfessional from "./pages/bookingProfessional";
 import NotFound from "./pages/notFound";
 import Home from "./pages/home";
 import BookingSummary from "./pages/bookingSummary";
-import ShopSelection from "./pages/bookingShop";
+import ShopSelection from "./pages/Shops";
 import Register from "./pages/register";
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
           <Route path="/:id/booking-hour" element={<BookingHour />} />
           <Route path="/:id/booking-summary" element={<BookingSummary />} />
           <Route path="/:id/signin" element={<SignIn />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/:id/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HashRouter>

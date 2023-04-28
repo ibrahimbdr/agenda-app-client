@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ShopCard from "../components/ShopCard";
 import { FaSearch } from "react-icons/fa";
+import instance from "../axiosConfig/axiosConfig";
 
 const ShopSelection = () => {
   const [selectedShop, setSelectedShop] = useState(null);
@@ -10,80 +11,88 @@ const ShopSelection = () => {
   const [shopsPerPage] = useState(4);
   const navigate = useNavigate();
 
-  const shops = [
-    {
-      id: 1,
-      name: "Shop A",
-      urlSlug: "ShopA",
-      imageUrl: "https://placehold.it/300x200",
-    },
-    {
-      id: 2,
-      name: "Shop B",
-      urlSlug: "ShopB",
-      imageUrl: "https://placehold.it/300x200",
-    },
-    {
-      id: 3,
-      name: "Shop C",
-      urlSlug: "ShopC",
-      imageUrl: "https://placehold.it/300x200",
-    },
-    {
-      id: 4,
-      name: "Shop D",
-      urlSlug: "ShopD",
-      imageUrl: "https://placehold.it/300x200",
-    },
-    {
-      id: 5,
-      name: "Shop E",
-      urlSlug: "ShopE",
-      imageUrl: "https://placehold.it/300x200",
-    },
-    {
-      id: 6,
-      name: "Shop F",
-      urlSlug: "ShopF",
-      imageUrl: "https://placehold.it/300x200",
-    },
-    {
-      id: 7,
-      name: "Shop G",
-      urlSlug: "ShopG",
-      imageUrl: "https://placehold.it/300x200",
-    },
-    {
-      id: 8,
-      name: "Shop H",
-      urlSlug: "ShopH",
-      imageUrl: "https://placehold.it/300x200",
-    },
-    {
-      id: 9,
-      name: "Shop I",
-      urlSlug: "ShopI",
-      imageUrl: "https://placehold.it/300x200",
-    },
-    {
-      id: 10,
-      name: "Shop J",
-      urlSlug: "ShopJ",
-      imageUrl: "https://placehold.it/300x200",
-    },
-    {
-      id: 11,
-      name: "Shop K",
-      urlSlug: "ShopK",
-      imageUrl: "https://placehold.it/300x200",
-    },
-    {
-      id: 12,
-      name: "Shop L",
-      urlSlug: "ShopL",
-      imageUrl: "https://placehold.it/300x200",
-    },
-  ];
+  const [shops, setShops] = useState([]);
+  useEffect(() => {
+    instance.get("/managers/shops").then((response) => {
+      // setshops(response.data);
+      setShops(response.data);
+    });
+  }, []);
+
+  // const shops = [
+  //   {
+  //     id: 1,
+  //     name: "Shop A",
+  //     urlSlug: "ShopA",
+  //     imageUrl: "https://placehold.it/300x200",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Shop B",
+  //     urlSlug: "ShopB",
+  //     imageUrl: "https://placehold.it/300x200",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Shop C",
+  //     urlSlug: "ShopC",
+  //     imageUrl: "https://placehold.it/300x200",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Shop D",
+  //     urlSlug: "ShopD",
+  //     imageUrl: "https://placehold.it/300x200",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Shop E",
+  //     urlSlug: "ShopE",
+  //     imageUrl: "https://placehold.it/300x200",
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "Shop F",
+  //     urlSlug: "ShopF",
+  //     imageUrl: "https://placehold.it/300x200",
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "Shop G",
+  //     urlSlug: "ShopG",
+  //     imageUrl: "https://placehold.it/300x200",
+  //   },
+  //   {
+  //     id: 8,
+  //     name: "Shop H",
+  //     urlSlug: "ShopH",
+  //     imageUrl: "https://placehold.it/300x200",
+  //   },
+  //   {
+  //     id: 9,
+  //     name: "Shop I",
+  //     urlSlug: "ShopI",
+  //     imageUrl: "https://placehold.it/300x200",
+  //   },
+  //   {
+  //     id: 10,
+  //     name: "Shop J",
+  //     urlSlug: "ShopJ",
+  //     imageUrl: "https://placehold.it/300x200",
+  //   },
+  //   {
+  //     id: 11,
+  //     name: "Shop K",
+  //     urlSlug: "ShopK",
+  //     imageUrl: "https://placehold.it/300x200",
+  //   },
+  //   {
+  //     id: 12,
+  //     name: "Shop L",
+  //     urlSlug: "ShopL",
+  //     imageUrl: "https://placehold.it/300x200",
+  //   },
+  // ];
 
   const handleShopSelection = (shop) => {
     // console.log(`User selected shop with ID ${shop.id}`);
@@ -100,7 +109,7 @@ const ShopSelection = () => {
 
   const filteredShops = useMemo(() => {
     return shops.filter((shop) =>
-      shop.name.toLowerCase().includes(searchQuery.toLowerCase())
+      shop.shopName.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [shops, searchQuery]);
 
@@ -144,17 +153,37 @@ const ShopSelection = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-items-center">
-          {currentShops.map((shop) => (
+          {currentShops.map((shop, index) => (
+            // <div
+            //   key={index}
+            //   className={`max-w-sm rounded overflow-hidden shadow-lg cursor-pointer
+            //   ${selectedShop.id === shop.id ? "ring-2 ring-indigo-500" : ""}
+            //   `}
+            //   onClick={() => handleShopSelection(shop)}
+            // >
             <div
-              key={shop.id}
-              className={`max-w-sm rounded overflow-hidden shadow-lg cursor-pointer ${
-                selectedShop?.id === shop.id ? "ring-2 ring-indigo-500" : ""
-              }`}
+              key={index}
+              className={`max-w-sm rounded overflow-hidden shadow-lg cursor-pointer 
+              
+              `}
               onClick={() => handleShopSelection(shop)}
             >
-              <img className="w-full" src={shop.imageUrl} alt={shop.name} />
+              {shop.profileImg ? (
+                <img
+                  className="w-[300px] h-[200px]"
+                  src={`http://localhost:4040/uploads/${shop.profileImg}`}
+                  alt={shop.shopName}
+                />
+              ) : (
+                <img
+                  className="w-full"
+                  src="https://placehold.it/300x200"
+                  alt="shop name"
+                />
+              )}
+
               <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">{shop.name}</div>
+                <div className="font-bold text-xl mb-2">{shop.shopName}</div>
               </div>
             </div>
           ))}

@@ -1,17 +1,38 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import instance from "../axiosConfig/axiosConfig";
 
 const Register = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const params = useParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Name:", name);
     console.log("Phone:", phone);
-    navigate("/booking-service");
+    instance
+      .get(`/managers/shopname?urlSlug=${params.id}`)
+      .then((response) => {
+        instance
+          .post("/customers", {
+            name: name,
+            phone: phone,
+            shopName: response.data.shopName,
+          })
+          .then((response) => {
+            console.log(response);
+            navigate(`/shops/${params.id}/`);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     // Implement logic to register the client
     // Redirect to the home page

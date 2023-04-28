@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import instance from "../axiosConfig/axiosConfig";
 
 const Booking = () => {
   const params = useParams();
+
+  const [currentShop, setCurrentShop] = useState({});
+  useEffect(() => {
+    instance.get(`/managers/shopname?urlSlug=${params.id}`).then((response) => {
+      console.log(response.data);
+      setCurrentShop(response.data);
+    });
+  }, []);
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <div className="max-w-sm rounded overflow-hidden shadow-lg mb-4">
-        <img className="w-full" src="https://placehold.it/300x200" />
+        {currentShop.profileImg ? (
+          <img
+            className="w-[300px] h-[200px]"
+            src={`http://localhost:4040/uploads/${currentShop.profileImg}`}
+            alt={currentShop.shopName}
+          />
+        ) : (
+          <img
+            className="w-full"
+            src="https://placehold.it/300x200"
+            alt="shop name"
+          />
+        )}
       </div>
       <h1 className="text-5xl font-extrabold mb-8 text-gray-900">
         Start Booking Now !

@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const BookingDate = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState();
   const params = useParams();
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Selected date:", selectedDate);
+    localStorage.setItem("selectedDate", selectedDate);
+    navigate(`/${params.id}/booking-hour`);
     // Implement logic to check if the selected date has any reserved appointments
     // If there are reserved appointments, show them in a div next to the date picker
     // If there are no reserved appointments, show a message saying "No Appointments"
@@ -20,7 +24,7 @@ const BookingDate = () => {
         Select a Date
       </h1>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={(event) => handleSubmit(event)}
         className="bg-white rounded-lg shadow-lg p-8"
       >
         <div className="flex flex-wrap justify-center">
@@ -41,14 +45,15 @@ const BookingDate = () => {
             </div>
           )}
         </div>
-      </form>
-      {selectedDate && (
-        <Link to={`/${params.id}/booking-hour`}>
-          <button className="bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-medium py-4 px-8 rounded-full mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        {selectedDate && (
+          <button
+            type="submit"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-medium py-4 px-8 rounded-full mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
             Continue
           </button>
-        </Link>
-      )}
+        )}
+      </form>
     </div>
   );
 };

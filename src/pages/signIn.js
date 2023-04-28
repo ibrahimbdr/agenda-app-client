@@ -1,13 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
+import instance from "../axiosConfig/axiosConfig";
 
 const SignIn = () => {
+  const params = useParams();
   const navigate = useNavigate();
   const handleFormSubmit = (values) => {
     console.log(values);
-    navigate("/booking-service");
+    instance
+      .post("/customers/login", values)
+      .then((response) => {
+        console.log(response);
+        navigate(`/${params.id}/booking-service`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     // Implement login logic here
   };
 
@@ -58,7 +69,7 @@ const SignIn = () => {
       </Formik>
       <p className="text-gray-500 text-sm mt-4">
         Don't have an account?{" "}
-        <Link to="/register" className="text-indigo-600">
+        <Link to={`/${params.id}/register`} className="text-indigo-600">
           Register here
         </Link>
       </p>
