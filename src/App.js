@@ -10,6 +10,8 @@ import Home from "./pages/home";
 import BookingSummary from "./pages/bookingSummary";
 import ShopSelection from "./pages/Shops";
 import Register from "./pages/register";
+import BookingCheckout from "./pages/bookingCheckout";
+import BookingCompleted from "./pages/bookingCompleted";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path="/:id/booking-summary" element={<BookingSummary />} />
           <Route path="/:id/signin" element={<SignIn />} />
           <Route path="/:id/register" element={<Register />} />
+          <Route path="/:id/booking-checkout" element={<BookingCheckout />} />
+          <Route path="/:id/booking-completed" element={<BookingCompleted />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HashRouter>

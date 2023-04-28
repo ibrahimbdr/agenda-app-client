@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import instance from "../axiosConfig/axiosConfig";
 
 const BookingSummary = () => {
+  const navigate = useNavigate();
   const [shopName, setShopName] = useState("");
   const professional = JSON.parse(localStorage.getItem("professional"));
   const services = JSON.parse(localStorage.getItem("services"));
+  const servicesId = [];
+  services.map((service) => {
+    servicesId.push(service.id);
+  });
   const d = new Date(localStorage.getItem("dateTime"));
   const date = new Intl.DateTimeFormat(["ban", "id"]).format(d);
-  const time = new Intl.DateTimeFormat("en-GB", { timeStyle: "short" }).format(
-    d
-  );
+  const time = new Intl.DateTimeFormat("en", {
+    hour: "numeric",
+    minute: "numeric",
+    hourCycle: "h23",
+  }).format(d);
   const params = useParams();
   useEffect(() => {
     instance.get(`/managers/shopname?urlSlug=${params.id}`).then((response) => {
@@ -18,6 +25,20 @@ const BookingSummary = () => {
       setShopName(response.data.shopName);
     });
   }, []);
+
+  const handleConfirmation = () => {
+    localStorage.setItem(
+      "bookingInfo",
+      JSON.stringify({
+        shopName: shopName,
+        customer: "",
+        professional: professional._id,
+        service: servicesId,
+        dateTime: d,
+      })
+    );
+    navigate(`/${params.id}/booking-checkout`);
+  };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-6">
       <h1 className="text-5xl font-extrabold mb-8 text-gray-900">
@@ -38,15 +59,13 @@ const BookingSummary = () => {
         <p className="text-xl mb-8">{date}</p>
         <p className="text-lg font-semibold mb-4">Selected Time:</p>
         <p className="text-xl mb-8">{time}</p>
-        <p className="text-lg font-semibold mb-4">Reserved for:</p>
-        <p className="text-xl mb-8">John Doe</p>
-        <p className="text-lg font-semibold mb-4">Contact Phone:</p>
-        <p className="text-xl mb-8">(555) 555-5555</p>
-        <Link to="/">
-          <button className="bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-medium py-4 px-8 rounded-full mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Confirm
-          </button>
-        </Link>
+
+        <button
+          onClick={handleConfirmation}
+          className="bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-medium py-4 px-8 rounded-full mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Confirm
+        </button>
       </div>
     </div>
   );
