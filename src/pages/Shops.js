@@ -189,7 +189,7 @@ const ShopSelection = () => {
           ))}
         </div>
         {currentShops.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-full">
+          <div className="flex flex-col items-center justify-center">
             <div className="mb-4">
               <svg
                 className="h-16 w-16 text-gray-400"
