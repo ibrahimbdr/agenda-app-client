@@ -5,12 +5,17 @@ import instance from "../axiosConfig/axiosConfig";
 const BookingService = () => {
   const params = useParams();
   const [selectedServices, setSelectedServices] = useState([]);
-  const [servicess, setServicess] = useState([]);
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
-    instance.get(`/services`).then((response) => {
-      console.log(response.data.services);
-      setServicess(response.data.services);
+    instance.get(`/managers/shopname?urlSlug=${params.id}`).then((response) => {
+      console.log(response.data);
+      instance
+        .get(`/services/shopname?shopName=${response.data.shopName}`)
+        .then((response) => {
+          console.log(response.data.services);
+          setServices(response.data.services);
+        });
     });
   }, []);
 
@@ -23,13 +28,13 @@ const BookingService = () => {
     // Check if the service is already selected
     if (
       selectedServices.some(
-        (selectedService) => selectedService.id === service.id
+        (selectedService) => selectedService._id === service._id
       )
     ) {
       // If yes, remove it from the array
       setSelectedServices(
         selectedServices.filter(
-          (selectedService) => selectedService.id !== service.id
+          (selectedService) => selectedService._id !== service._id
         )
       );
     } else {
@@ -38,12 +43,12 @@ const BookingService = () => {
     }
   };
 
-  const services = [
-    { id: 1, name: "Service 1", image: "https://via.placeholder.com/150" },
-    { id: 2, name: "Service 2", image: "https://via.placeholder.com/150" },
-    { id: 3, name: "Service 3", image: "https://via.placeholder.com/150" },
-    { id: 4, name: "Service 4", image: "https://via.placeholder.com/150" },
-  ];
+  // const services = [
+  //   { id: 1, name: "Service 1", image: "https://via.placeholder.com/150" },
+  //   { id: 2, name: "Service 2", image: "https://via.placeholder.com/150" },
+  //   { id: 3, name: "Service 3", image: "https://via.placeholder.com/150" },
+  //   { id: 4, name: "Service 4", image: "https://via.placeholder.com/150" },
+  // ];
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
@@ -53,10 +58,10 @@ const BookingService = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {services.map((service) => (
           <div
-            key={service.id}
+            key={service._id}
             className={`bg-white rounded-lg shadow-md ${
               selectedServices.some(
-                (selectedService) => selectedService.id === service.id
+                (selectedService) => selectedService._id === service._id
               )
                 ? "ring-2 ring-indigo-500"
                 : ""

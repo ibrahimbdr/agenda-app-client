@@ -53,9 +53,10 @@ const BookingHour = () => {
         className="bg-white rounded-lg shadow-lg p-8"
       >
         <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
-          {hours.map((hour) => {
+          {hours.map((hour, index) => {
             return (
               <button
+                key={index}
                 type="button"
                 className={`${
                   selectedHour === hour ? "ring-2 ring-indigo-500" : ""

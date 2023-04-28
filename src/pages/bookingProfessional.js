@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import instance from "../axiosConfig/axiosConfig";
 
 const BookingProfessional = () => {
   const params = useParams();
@@ -11,6 +12,18 @@ const BookingProfessional = () => {
     { id: 2, name: "Professional 2", description: "description" },
     { id: 3, name: "Professional 3", description: "description" },
   ]);
+
+  useEffect(() => {
+    instance.get(`/managers/shopname?urlSlug=${params.id}`).then((response) => {
+      console.log(response.data);
+      instance
+        .get(`/professionals/shopname?shopName=${response.data.shopName}`)
+        .then((response) => {
+          console.log(response.data.data);
+          setProfessionals(response.data.data);
+        });
+    });
+  }, []);
 
   const handleSelction = (pro) => {
     localStorage.setItem("professional", JSON.stringify(pro));
@@ -31,7 +44,7 @@ const BookingProfessional = () => {
           <div className="mt-8">
             <ul className="divide-y divide-gray-200">
               {professionals.map((professional) => (
-                <li key={professional.id} className="py-4">
+                <li key={professional._id} className="py-4">
                   <button
                     onClick={() => handleSelction(professional)}
                     className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out"
@@ -54,10 +67,10 @@ const BookingProfessional = () => {
                         </svg>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-lg font-medium leading-5 text-gray-900">
+                        <div className="text-lg font-medium text-left leading-5 text-gray-900">
                           {professional.name}
                         </div>
-                        <div className="text-lg leading-5 text-gray-500">
+                        <div className="text-lg leading-5 text-left text-gray-500">
                           {professional.description}
                         </div>
                       </div>
