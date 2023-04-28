@@ -93,6 +93,24 @@ const BookingProfessional = () => {
                 </li>
               ))}
             </ul>
+            {professionals.length === 0 && (
+              <div className="flex flex-col items-center justify-center">
+                <div className="mb-4">
+                  <svg
+                    className="h-16 w-16 text-gray-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 3a7 7 0 100 14 7 7 0 000-14zM2.472 8.528A7 7 0 010 6a8 8 0 003.938 6.905l-1.466 1.466a10.001 10.001 0 015.895-5.895L9.462 7.04a8.018 8.018 0 00-6.99 1.489z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <p className="text-gray-500 mb-2">No available professionals</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
