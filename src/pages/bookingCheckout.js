@@ -8,6 +8,7 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate, useParams } from "react-router-dom";
 import instance from "../axiosConfig/axiosConfig";
+import twilio from "twilio";
 
 const stripePromise = loadStripe("your_publishable_key_here");
 
@@ -18,6 +19,26 @@ function BookingCheckout() {
   const [cardErrorMessage, setCardErrorMessage] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
+  const [amount, setAmount] = useState(0);
+  const [twilioPhone, setTwilioPhone] = useState();
+  const [recipientPhone, setRecipientPhone] = useState();
+  const [messageBody, setMessageBody] = useState("");
+
+  const sendSMS = () => {
+    const accountSid = "your_account_sid";
+    const authToken = "your_auth_token";
+
+    const client = twilio(accountSid, authToken);
+    client.messages
+      .create({
+        body: messageBody,
+        from: twilioPhone, // Twilio phone number
+        to: recipientPhone, // recipient phone number
+      })
+      .then((message) => console.log(message.sid))
+      .catch((error) => console.error(error));
+  };
+
   const [bookingInfo, setBookingInfo] = useState(
     JSON.parse(localStorage.getItem("bookingInfo"))
   );
@@ -58,7 +79,31 @@ function BookingCheckout() {
       if (error) {
         setCardErrorMessage(error.message);
       } else {
-        // Handle successful payment here
+        const paymentIntent = await instance.post(`/create-payment-intent`, {
+          amount: amount,
+          currency: "usd",
+          paymentMethod: paymentMethod.id,
+        });
+
+        const { error: paymentIntentError } = await stripe.confirmCardPayment(
+          paymentIntent.data.client_secret,
+          {
+            payment_method: paymentMethod.id,
+          }
+        );
+
+        if (paymentIntentError) {
+          console.error(paymentIntentError);
+          setCardErrorMessage(paymentIntentError.message);
+        } else {
+          // Handle successful payment here
+          localStorage.setItem("payment", "stripe");
+          //   setTwilioPhone('+123 456 7890');
+          //   setRecipientPhone('+123 456 7890');
+          //   setMessageBody("");
+          //   sendSMS();
+          navigate(`/shops/${params.id}/booking-completed`);
+        }
       }
     } else {
       // Handle payOnCounter option here
@@ -69,6 +114,10 @@ function BookingCheckout() {
         .then((response) => {
           console.log(response);
           localStorage.setItem("payment", "on Counter");
+          //   setTwilioPhone('+123 456 7890');
+          //   setRecipientPhone('+123 456 7890');
+          //   setMessageBody("");
+          //   sendSMS();
           navigate(`/shops/${params.id}/booking-completed`);
         })
         .catch((error) => console.log(error));

@@ -8,7 +8,6 @@ function BookingCompleted() {
   const paymentMethod = localStorage.getItem("payment");
 
   useEffect(() => {
-    const customerId = localStorage.getItem("customerId");
     instance
       .get(`/customers/id`, {
         headers: { Authorization: localStorage.getItem("customerToken") },
