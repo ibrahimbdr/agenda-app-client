@@ -8,7 +8,7 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate, useParams } from "react-router-dom";
 import instance from "../axiosConfig/axiosConfig";
-import twilio from "twilio";
+// import twilio from "twilio";
 
 const stripePromise = loadStripe("your_publishable_key_here");
 
