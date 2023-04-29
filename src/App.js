@@ -12,6 +12,7 @@ import ShopSelection from "./pages/Shops";
 import Register from "./pages/register";
 import BookingCheckout from "./pages/bookingCheckout";
 import BookingCompleted from "./pages/bookingCompleted";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             path="/shops/:id/booking-completed"
             element={<BookingCompleted />}
           />
+          <Route path="/ag-admin" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HashRouter>

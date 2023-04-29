@@ -20,24 +20,24 @@ function BookingCheckout() {
   const stripe = useStripe();
   const elements = useElements();
   const [amount, setAmount] = useState(0);
-  const [twilioPhone, setTwilioPhone] = useState();
-  const [recipientPhone, setRecipientPhone] = useState();
-  const [messageBody, setMessageBody] = useState("");
+  //   const [twilioPhone, setTwilioPhone] = useState();
+  //   const [recipientPhone, setRecipientPhone] = useState();
+  //   const [messageBody, setMessageBody] = useState("");
 
-  const sendSMS = () => {
-    const accountSid = "your_account_sid";
-    const authToken = "your_auth_token";
+  //   const sendSMS = () => {
+  //     const accountSid = "your_account_sid";
+  //     const authToken = "your_auth_token";
 
-    const client = twilio(accountSid, authToken);
-    client.messages
-      .create({
-        body: messageBody,
-        from: twilioPhone, // Twilio phone number
-        to: recipientPhone, // recipient phone number
-      })
-      .then((message) => console.log(message.sid))
-      .catch((error) => console.error(error));
-  };
+  //     const client = twilio(accountSid, authToken);
+  //     client.messages
+  //       .create({
+  //         body: messageBody,
+  //         from: twilioPhone, // Twilio phone number
+  //         to: recipientPhone, // recipient phone number
+  //       })
+  //       .then((message) => console.log(message.sid))
+  //       .catch((error) => console.error(error));
+  //   };
 
   const [bookingInfo, setBookingInfo] = useState(
     JSON.parse(localStorage.getItem("bookingInfo"))
