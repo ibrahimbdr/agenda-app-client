@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FiAlertOctagon } from "react-icons/fi";
 
 const NotFound = () => {
   return (
@@ -10,11 +11,8 @@ const NotFound = () => {
       <p className="text-xl text-gray-500 mb-8">
         The page you are looking for does not exist.
       </p>
-      <img
-        src="https://cdn.pixabay.com/photo/2017/03/15/21/57/not-found-2140286_960_720.png"
-        alt="Page Not Found"
-        className="w-64 h-64 mb-8"
-      />
+      <FiAlertOctagon className="text-red-500 text-6xl mb-8" />
+
       <Link to="/" className="text-lg text-indigo-600 hover:text-indigo-700">
         Return to Home Page
       </Link>

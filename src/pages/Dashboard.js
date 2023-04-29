@@ -1,20 +1,17 @@
-import React from "react";
-import DashboardHeader from "../components/DashboardHeader";
-import DashboardHero from "../components/DashboardHero";
-import DashboardFeatures from "../components/DashboardFeatures";
-import DashboardTestimonials from "../components/DashboardTestimonials";
-import DashboardFooter from "../components/DashboardFooter";
+import Sidebar from "../components/Sidebar";
 
-const Dashboard = () => {
+function Dashboard() {
   return (
-    <div className="bg-gray-100">
-      <DashboardHeader />
-      <DashboardHero />
-      <DashboardFeatures />
-      <DashboardTestimonials />
-      <DashboardFooter />
+    <div className="flex h-screen bg-gray-50">
+      <Sidebar />
+
+      <div className="flex flex-col flex-1 w-full">
+        <main className="h-full overflow-y-auto">
+          {/* Content goes here */}
+        </main>
+      </div>
     </div>
   );
-};
+}
 
 export default Dashboard;
