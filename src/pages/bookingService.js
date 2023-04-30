@@ -55,7 +55,11 @@ const BookingService = () => {
       <h1 className="text-5xl font-extrabold mb-8 text-gray-900">
         Choose a Service
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <div
+        className={`grid grid-cols-1 ${
+          services.length > 1 && "sm:grid-cols-2"
+        } ${services.length > 3 && "md:grid-cols-4"} gap-4`}
+      >
         {services.map((service) => (
           <div
             key={service._id}

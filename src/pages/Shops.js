@@ -135,7 +135,7 @@ const ShopSelection = () => {
   };
 
   return (
-    <div className="p-6 h-screen bg-gray-100 overflow-auto">
+    <div className="pt-24 h-screen bg-gray-100 overflow-auto">
       <div className="flex flex-col h-full justify-center items-center">
         <h1 className="text-center text-5xl font-extrabold mb-8 text-gray-900">
           Choose a Shop
@@ -152,7 +152,13 @@ const ShopSelection = () => {
           <FaSearch className="ml-2 text-gray-500" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-items-center">
+        <div
+          className={`grid grid-cols-1 ${
+            currentShops.length > 1 && "sm:grid-cols-2"
+          } ${
+            currentShops.length > 3 && "lg:grid-cols-4"
+          } gap-4 justify-items-center`}
+        >
           {currentShops.map((shop, index) => (
             // <div
             //   key={index}
@@ -209,7 +215,7 @@ const ShopSelection = () => {
             </p>
           </div>
         )}
-        <nav className="flex justify-center mt-4 bg-gray-100">
+        <nav className="flex justify-center mt-4 pb-5 bg-gray-100">
           <button
             onClick={handlePrevClick}
             className={`${
