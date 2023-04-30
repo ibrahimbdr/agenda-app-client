@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { animateScroll } from "react-scroll";
 
 function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -47,35 +48,31 @@ function Navbar() {
           <Link
             to="#"
             className="py-2 px-4 text-gray-800 md:mx-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-            onClick={toggleMenu}
+            // onClick={()=>scrollToSection()}
           >
             Home
           </Link>
-          <Link
-            to="#"
+          <button
+            onClick={() => animateScroll.scrollTo(650)}
             className="py-2 px-4 text-gray-800 md:mx-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-            onClick={toggleMenu}
           >
             Shops
-          </Link>
-          <Link
-            to="#"
+          </button>
+          <button
+            onClick={() => animateScroll.scrollTo(1100)}
             className="py-2 px-4 text-gray-800 md:mx-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-            onClick={toggleMenu}
           >
             Articles
-          </Link>
-          <Link
-            to="#"
+          </button>
+          <button
+            onClick={() => animateScroll.scrollTo(2500)}
             className="py-2 px-4 text-gray-800 md:mx-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-            onClick={toggleMenu}
           >
             Services
-          </Link>
+          </button>
           <Link
             to="/shops"
             className="py-2 px-4 text-white rounded-full bg-gray-800 md:mx-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-            onClick={toggleMenu}
           >
             Find Shops
           </Link>
@@ -86,35 +83,32 @@ function Navbar() {
         <Link
           to="#"
           className="block py-2 px-4 text-gray-800 text-center transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-          onClick={toggleMenu}
+          // onClick={()=>scrollToSection()}
         >
           Home
         </Link>
-        <Link
-          to="#"
-          className="block py-2 px-4 text-gray-800 text-center transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-          onClick={toggleMenu}
+        <button
+          onClick={() => animateScroll.scrollTo(800)}
+          className="block w-full py-2 px-4 text-gray-800 text-center transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+          // onClick={scrollToShopSection}
         >
           Shops
-        </Link>
-        <Link
-          to="#"
-          className="block py-2 px-4 text-gray-800 text-center transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-          onClick={toggleMenu}
+        </button>
+        <button
+          onClick={() => animateScroll.scrollTo(1300)}
+          className="block w-full py-2 px-4 text-gray-800 text-center transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
         >
           Articles
-        </Link>
-        <Link
-          to="#"
-          className="block py-2 px-4 text-gray-800 text-center transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-          onClick={toggleMenu}
+        </button>
+        <button
+          onClick={() => animateScroll.scrollTo(3550)}
+          className="block w-full py-2 px-4 text-gray-800 text-center transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
         >
           Services
-        </Link>
+        </button>
         <Link
           to="/shops"
           className="block py-2 px-4 mx-auto w-fit text-white rounded-full bg-gray-800 md:mx-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-          onClick={toggleMenu}
         >
           Find Shops
         </Link>
