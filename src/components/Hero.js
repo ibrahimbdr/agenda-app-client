@@ -1,11 +1,19 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Perform search for shop names
-    console.log(`Searching for shop names`);
+    console.log(event.target.value.trim());
+    const searchQuery = event.target.value.trim();
+    navigate(`/shops?q=${encodeURIComponent(searchQuery)}`);
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit(event);
+    }
   };
 
   return (
@@ -19,8 +27,10 @@ function Hero() {
       <div className="w-2/3 md:w-1/3 lg:w-1/4 relative">
         <input
           type="text"
+          name="search"
           placeholder="Search for a shop"
           className="w-full py-3 pl-8 pr-2 text-white rounded-full bg-gray-700 focus:outline-none focus:shadow-outline"
+          onKeyDown={handleKeyDown}
         />
         <svg
           className="h-6 w-6 absolute top-0 left-0 mt-3 ml-3 text-gray-500"

@@ -3,103 +3,37 @@ import { Link, useNavigate } from "react-router-dom";
 import ShopCard from "../components/ShopCard";
 import { FaSearch } from "react-icons/fa";
 import instance from "../axiosConfig/axiosConfig";
+import { useLocation } from "react-router-dom";
 
 const ShopSelection = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const searchQueryFromURL = searchParams.get("q");
   const [selectedShop, setSelectedShop] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(searchQueryFromURL || "");
   const [currentPage, setCurrentPage] = useState(1);
   const [shopsPerPage] = useState(4);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams();
+    searchParams.set("q", searchQuery);
+    const newURL = `${location.pathname}?${searchParams.toString()}`;
+    window.history.replaceState(null, "", newURL);
+  }, [searchQuery, location.pathname]);
+
   const [shops, setShops] = useState([]);
   useEffect(() => {
     instance.get("/managers/shops").then((response) => {
-      // setshops(response.data);
       setShops(response.data);
     });
   }, []);
 
-  // const shops = [
-  //   {
-  //     id: 1,
-  //     name: "Shop A",
-  //     urlSlug: "ShopA",
-  //     imageUrl: "https://placehold.it/300x200",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Shop B",
-  //     urlSlug: "ShopB",
-  //     imageUrl: "https://placehold.it/300x200",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Shop C",
-  //     urlSlug: "ShopC",
-  //     imageUrl: "https://placehold.it/300x200",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Shop D",
-  //     urlSlug: "ShopD",
-  //     imageUrl: "https://placehold.it/300x200",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Shop E",
-  //     urlSlug: "ShopE",
-  //     imageUrl: "https://placehold.it/300x200",
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Shop F",
-  //     urlSlug: "ShopF",
-  //     imageUrl: "https://placehold.it/300x200",
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "Shop G",
-  //     urlSlug: "ShopG",
-  //     imageUrl: "https://placehold.it/300x200",
-  //   },
-  //   {
-  //     id: 8,
-  //     name: "Shop H",
-  //     urlSlug: "ShopH",
-  //     imageUrl: "https://placehold.it/300x200",
-  //   },
-  //   {
-  //     id: 9,
-  //     name: "Shop I",
-  //     urlSlug: "ShopI",
-  //     imageUrl: "https://placehold.it/300x200",
-  //   },
-  //   {
-  //     id: 10,
-  //     name: "Shop J",
-  //     urlSlug: "ShopJ",
-  //     imageUrl: "https://placehold.it/300x200",
-  //   },
-  //   {
-  //     id: 11,
-  //     name: "Shop K",
-  //     urlSlug: "ShopK",
-  //     imageUrl: "https://placehold.it/300x200",
-  //   },
-  //   {
-  //     id: 12,
-  //     name: "Shop L",
-  //     urlSlug: "ShopL",
-  //     imageUrl: "https://placehold.it/300x200",
-  //   },
-  // ];
-
   const handleShopSelection = (shop) => {
-    // console.log(`User selected shop with ID ${shop.id}`);
     const shopUrlSlug = decodeURIComponent(shop.urlSlug);
     setSelectedShop(shop);
-    navigate(`/shops/${shopUrlSlug}`);
     // Implement logic to navigate to the next page with the selected shop ID
+    navigate(`/shops/${shopUrlSlug}`);
   };
 
   const handleSearchQueryChange = (event) => {
@@ -177,7 +111,7 @@ const ShopSelection = () => {
               {shop.profileImg ? (
                 <img
                   className="w-[300px] h-[200px]"
-                  src={`http://localhost:4040/uploads/${shop.profileImg}`}
+                  src={`http://localhost:4040/uploads/profile/${shop.profileImg}`}
                   alt={shop.shopName}
                 />
               ) : (

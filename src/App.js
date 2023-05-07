@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Booking from "./pages/booking";
 import BookingDate from "./pages/bookingDate";
 import BookingHour from "./pages/bookingHour";
@@ -17,7 +17,7 @@ import Dashboard from "./pages/Dashboard";
 function App() {
   return (
     <div>
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shops" element={<ShopSelection />} />
@@ -49,7 +49,7 @@ function App() {
           <Route path="/ag-admin" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </div>
   );
 }

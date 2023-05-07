@@ -18,7 +18,7 @@ const Booking = () => {
         {currentShop.profileImg ? (
           <img
             className="w-[300px] h-[200px]"
-            src={`http://localhost:4040/uploads/${currentShop.profileImg}`}
+            src={`http://localhost:4040/uploads/profile/${currentShop.profileImg}`}
             alt={currentShop.shopName}
           />
         ) : (
