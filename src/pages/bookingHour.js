@@ -39,7 +39,7 @@ const BookingHour = () => {
     d.setHours(+timeArr[0]);
     d.setMinutes(+timeArr[1]);
     localStorage.setItem("dateTime", d);
-    navigate(`/shops/${params.id}/booking-summary`);
+    navigate(`/shops/${params.id}/buy-product`);
     // Implement booking logic here
   };
 

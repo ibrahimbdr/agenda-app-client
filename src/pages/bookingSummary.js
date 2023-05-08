@@ -11,6 +11,11 @@ const BookingSummary = () => {
   services.map((service) => {
     servicesId.push(service["_id"]);
   });
+  const products = JSON.parse(localStorage.getItem("products"));
+  const productsId = [];
+  products.map((product) => {
+    productsId.push(product["_id"]);
+  });
   const d = new Date(localStorage.getItem("dateTime"));
   const date = new Intl.DateTimeFormat(["ban", "id"]).format(d);
   const time = new Intl.DateTimeFormat("en", {
@@ -34,6 +39,7 @@ const BookingSummary = () => {
         customer: "",
         professional: professional._id,
         service: servicesId,
+        products: productsId,
         dateTime: d,
       })
     );
@@ -53,10 +59,16 @@ const BookingSummary = () => {
         <p className="text-xl mb-8">{shopName}</p>
         <p className="text-lg font-semibold mb-4">Professional:</p>
         <p className="text-xl mb-8">{professional.name}</p>
-        <p className="text-lg font-semibold mb-4">Service:</p>
+        <p className="text-lg font-semibold mb-4">Services:</p>
         <p className="text-xl mb-8">
           {services.map((service) => {
             return <span>{service.name} </span>;
+          })}
+        </p>
+        <p className="text-lg font-semibold mb-4">Products:</p>
+        <p className="text-xl mb-8">
+          {products.map((product) => {
+            return <span>{product.name} </span>;
           })}
         </p>
         <p className="text-lg font-semibold mb-4">Selected Date:</p>

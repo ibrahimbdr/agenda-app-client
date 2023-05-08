@@ -31,6 +31,7 @@ import DashboardSection1 from "./pages/DashboardSection1";
 import DashboardSection2 from "./pages/DashboardSection2";
 import AdminLogin from "./pages/AdminLogin";
 import axios from "axios";
+import BuyProduct from "./pages/BuyProduct";
 
 function App() {
   const [heroData, setHeroData] = useState({
@@ -253,6 +254,10 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/shops" element={<ShopSelection />} />
                         <Route path="/shops/:id" element={<Booking />} />
+                        <Route
+                          path="/shops/:id/buy-product"
+                          element={<BuyProduct />}
+                        />
                         <Route
                           path="/shops/:id/booking-service"
                           element={<BookingService />}

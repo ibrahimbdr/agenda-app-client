@@ -75,7 +75,7 @@ const BookingService = () => {
             <img
               src="https://via.placeholder.com/150"
               alt={service.name}
-              className="h-48 w-full object-cover"
+              className="h-48 w-full  rounded-t-lg object-cover"
             />
             <div className="p-4">
               <h2 className="text-xl font-medium text-gray-900">
