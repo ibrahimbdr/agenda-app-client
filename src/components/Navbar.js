@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { animateScroll } from "react-scroll";
+import websiteTitleContext from "../context/WebsiteTitleContext";
 
 function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { websiteTitle } = useContext(websiteTitleContext);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -14,7 +16,7 @@ function Navbar() {
       <div className="mx-auto px-4 py-2 max-w-screen-lg flex items-center justify-between">
         <div className="flex items-center">
           <Link to="/" className="text-gray-800 font-bold text-lg">
-            My Website
+            {websiteTitle}
           </Link>
           <button
             className="ml-4 md:hidden text-gray-800 focus:outline-none"

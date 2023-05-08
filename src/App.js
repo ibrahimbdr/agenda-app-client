@@ -19,6 +19,7 @@ import articlesContext from "./context/ArticlesContext";
 import section1Context from "./context/Section1Context";
 import section2Context from "./context/Section2Context";
 import servicesContext from "./context/ServicesContext";
+import websiteTitleContext from "./context/WebsiteTitleContext";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import DashboardHome from "./pages/DashboardHome";
 import DashboardHero from "./pages/DashboardHero";
@@ -150,6 +151,8 @@ function App() {
     },
   ]);
 
+  const [websiteTitle, setWebsiteTitle] = useState("My Website");
+
   useEffect(() => {
     fetchAdminData();
   }, []);
@@ -192,6 +195,10 @@ function App() {
       if (response.data.admin.section2Data) {
         setSection2Data(response.data.admin.section2Data);
       }
+
+      if (response.data.admin.websiteTitle) {
+        setWebsiteTitle(response.data.admin.websiteTitle);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -199,136 +206,143 @@ function App() {
 
   return (
     <div>
-      <heroContext.Provider
+      <websiteTitleContext.Provider
         value={{
-          heroData: heroData,
-          setHeroData: setHeroData,
+          websiteTitle: websiteTitle,
+          setWebsiteTitle: setWebsiteTitle,
         }}
       >
-        <shopsContext.Provider
+        <heroContext.Provider
           value={{
-            shopsData: shopsData,
-            setShopsData: setShopsData,
+            heroData: heroData,
+            setHeroData: setHeroData,
           }}
         >
-          <articlesContext.Provider
+          <shopsContext.Provider
             value={{
-              articlesData: articlesData,
-              setArticlesData: setArticlesData,
+              shopsData: shopsData,
+              setShopsData: setShopsData,
             }}
           >
-            <section1Context.Provider
+            <articlesContext.Provider
               value={{
-                section1Data: section1Data,
-                setSection1Data: setSection1Data,
+                articlesData: articlesData,
+                setArticlesData: setArticlesData,
               }}
             >
-              <section2Context.Provider
+              <section1Context.Provider
                 value={{
-                  section2Data: section2Data,
-                  setSection2Data: setSection2Data,
+                  section1Data: section1Data,
+                  setSection1Data: setSection1Data,
                 }}
               >
-                <servicesContext.Provider
+                <section2Context.Provider
                   value={{
-                    servicesData: servicesData,
-                    setServicesData: setServicesData,
+                    section2Data: section2Data,
+                    setSection2Data: setSection2Data,
                   }}
                 >
-                  <BrowserRouter>
-                    <Routes>
-                      <Route path="/" element={<Home />} />
-                      <Route path="/shops" element={<ShopSelection />} />
-                      <Route path="/shops/:id" element={<Booking />} />
-                      <Route
-                        path="/shops/:id/booking-service"
-                        element={<BookingService />}
-                      />
-                      <Route
-                        path="/shops/:id/booking-professional"
-                        element={<BookingProfessional />}
-                      />
-                      <Route
-                        path="/shops/:id/booking-date"
-                        element={<BookingDate />}
-                      />
-                      <Route
-                        path="/shops/:id/booking-hour"
-                        element={<BookingHour />}
-                      />
-                      <Route
-                        path="/shops/:id/booking-summary"
-                        element={<BookingSummary />}
-                      />
-                      <Route path="/shops/:id/signin" element={<SignIn />} />
-                      <Route
-                        path="/shops/:id/register"
-                        element={<Register />}
-                      />
-                      <Route
-                        path="/shops/:id/booking-checkout"
-                        element={<BookingCheckout />}
-                      />
-                      <Route
-                        path="/shops/:id/booking-completed"
-                        element={<BookingCompleted />}
-                      />
-                      <Route element={<PrivateRoutes />}>
+                  <servicesContext.Provider
+                    value={{
+                      servicesData: servicesData,
+                      setServicesData: setServicesData,
+                    }}
+                  >
+                    <BrowserRouter>
+                      <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/shops" element={<ShopSelection />} />
+                        <Route path="/shops/:id" element={<Booking />} />
                         <Route
-                          path="/ag-admin"
-                          exact
-                          element={<DashboardHome />}
+                          path="/shops/:id/booking-service"
+                          element={<BookingService />}
                         />
                         <Route
-                          path="/ag-admin/hero"
-                          exact
-                          element={<DashboardHero />}
+                          path="/shops/:id/booking-professional"
+                          element={<BookingProfessional />}
                         />
                         <Route
-                          path="/ag-admin/shops"
-                          exact
-                          element={<DashboardShops />}
+                          path="/shops/:id/booking-date"
+                          element={<BookingDate />}
                         />
                         <Route
-                          path="/ag-admin/services"
-                          exact
-                          element={<DashboardServices />}
+                          path="/shops/:id/booking-hour"
+                          element={<BookingHour />}
                         />
                         <Route
-                          path="/ag-admin/articles"
-                          exact
-                          element={<DashboardArticles />}
+                          path="/shops/:id/booking-summary"
+                          element={<BookingSummary />}
+                        />
+                        <Route path="/shops/:id/signin" element={<SignIn />} />
+                        <Route
+                          path="/shops/:id/register"
+                          element={<Register />}
                         />
                         <Route
-                          path="/ag-admin/settings"
-                          exact
-                          element={<DashboardSettings />}
+                          path="/shops/:id/booking-checkout"
+                          element={<BookingCheckout />}
                         />
                         <Route
-                          path="/ag-admin/section1"
-                          exact
-                          element={<DashboardSection1 />}
+                          path="/shops/:id/booking-completed"
+                          element={<BookingCompleted />}
                         />
+                        <Route element={<PrivateRoutes />}>
+                          <Route
+                            path="/ag-admin"
+                            exact
+                            element={<DashboardHome />}
+                          />
+                          <Route
+                            path="/ag-admin/hero"
+                            exact
+                            element={<DashboardHero />}
+                          />
+                          <Route
+                            path="/ag-admin/shops"
+                            exact
+                            element={<DashboardShops />}
+                          />
+                          <Route
+                            path="/ag-admin/services"
+                            exact
+                            element={<DashboardServices />}
+                          />
+                          <Route
+                            path="/ag-admin/articles"
+                            exact
+                            element={<DashboardArticles />}
+                          />
+                          <Route
+                            path="/ag-admin/settings"
+                            exact
+                            element={<DashboardSettings />}
+                          />
+                          <Route
+                            path="/ag-admin/section1"
+                            exact
+                            element={<DashboardSection1 />}
+                          />
+                          <Route
+                            path="/ag-admin/section2"
+                            exact
+                            element={<DashboardSection2 />}
+                          />
+                        </Route>
                         <Route
-                          path="/ag-admin/section2"
+                          path="/ag-admin/login"
                           exact
-                          element={<DashboardSection2 />}
+                          element={<AdminLogin />}
                         />
-                      </Route>
-                      <Route
-                        path="/ag-admin/login"
-                        exact
-                        element={<AdminLogin />}
-                      />
-                      <Route path="*" element={<NotFound />} />
-                    </Routes>
-                  </BrowserRouter>
-                </servicesContext.Provider>
-              </section2Context.Provider>
-            </section1Context.Provider>
-          </articlesContext.Provider>
-        </shopsContext.Provider>
-      </heroContext.Provider>
+                        <Route path="*" element={<NotFound />} />
+                      </Routes>
+                    </BrowserRouter>
+                  </servicesContext.Provider>
+                </section2Context.Provider>
+              </section1Context.Provider>
+            </articlesContext.Provider>
+          </shopsContext.Provider>
+        </heroContext.Provider>
+      </websiteTitleContext.Provider>
     </div>
   );
 }

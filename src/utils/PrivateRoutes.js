@@ -1,12 +1,14 @@
 import { Outlet, Navigate } from "react-router-dom";
 // import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 
 const PrivateRoutes = () => {
   const isAuthenticated = !!localStorage.getItem("adminToken");
 
   return isAuthenticated ? (
     <>
+      <Header />
       <div className="flex h-screen bg-gray-50">
         <Sidebar />
 
