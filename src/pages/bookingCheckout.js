@@ -19,7 +19,7 @@ function BookingCheckout() {
   const [cardErrorMessage, setCardErrorMessage] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
-  const [amount, setAmount] = useState(0);
+  // const [amount, setAmount] = useState(0);
   //   const [twilioPhone, setTwilioPhone] = useState();
   //   const [recipientPhone, setRecipientPhone] = useState();
   //   const [messageBody, setMessageBody] = useState("");
@@ -69,7 +69,53 @@ function BookingCheckout() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    const {
+      shopName,
+      customer,
+      service,
+      professional,
+      product,
+      amount,
+      dateTime,
+    } = bookingInfo;
+    let paymentObj = {};
+    let appointmentObj = {};
+    if (product) {
+      paymentObj = {
+        shopName,
+        customer,
+        service,
+        professional,
+        product,
+        amount,
+        dateTime: new Date(),
+      };
+      appointmentObj = {
+        shopName,
+        customer,
+        service,
+        professional,
+        product,
+        dateTime: new Date(bookingInfo.dateTime),
+      };
+    } else {
+      paymentObj = {
+        shopName,
+        customer,
+        service,
+        professional,
+        amount,
+        dateTime: new Date(),
+      };
+      appointmentObj = {
+        shopName,
+        customer,
+        service,
+        professional,
+        product,
+        dateTime: new Date(bookingInfo.dateTime),
+      };
+    }
     if (paymentOption === "stripe") {
       const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: "card",
@@ -107,18 +153,28 @@ function BookingCheckout() {
       }
     } else {
       // Handle payOnCounter option here
+      console.log("payment obj: " + JSON.stringify(paymentObj));
+      console.log("appointment obj: " + JSON.stringify(appointmentObj));
       instance
-        .post(`/appointments/`, bookingInfo, {
+        .post(`/payments/`, JSON.stringify(paymentObj), {
           headers: { "Content-Type": "application/json" },
         })
         .then((response) => {
           console.log(response);
-          localStorage.setItem("payment", "on Counter");
-          //   setTwilioPhone('+123 456 7890');
-          //   setRecipientPhone('+123 456 7890');
-          //   setMessageBody("");
-          //   sendSMS();
-          navigate(`/shops/${params.id}/booking-completed`);
+          instance
+            .post(`/appointments/`, JSON.stringify(appointmentObj), {
+              headers: { "Content-Type": "application/json" },
+            })
+            .then((response) => {
+              console.log(response);
+              localStorage.setItem("payment", "on Counter");
+              //   setTwilioPhone('+123 456 7890');
+              //   setRecipientPhone('+123 456 7890');
+              //   setMessageBody("");
+              //   sendSMS();
+              navigate(`/shops/${params.id}/booking-completed`);
+            })
+            .catch((error) => console.log(error));
         })
         .catch((error) => console.log(error));
     }

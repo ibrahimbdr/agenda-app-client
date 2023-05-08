@@ -13,9 +13,11 @@ const BookingSummary = () => {
   });
   const products = JSON.parse(localStorage.getItem("products"));
   const productsId = [];
-  products.map((product) => {
-    productsId.push(product["_id"]);
-  });
+  if (products) {
+    products.map((product) => {
+      productsId.push(product["_id"]);
+    });
+  }
   const d = new Date(localStorage.getItem("dateTime"));
   const date = new Intl.DateTimeFormat(["ban", "id"]).format(d);
   const time = new Intl.DateTimeFormat("en", {
@@ -32,6 +34,19 @@ const BookingSummary = () => {
   }, []);
 
   const handleConfirmation = () => {
+    let total = 0;
+    const sum = services.reduce((acc, service) => {
+      return acc + service.price;
+    }, 0);
+    total = sum;
+    if (products) {
+      const sum2 = products.reduce((acc, product) => {
+        return acc + product.price;
+      }, sum);
+      console.log("sum2: ", sum2);
+      total = sum2;
+    }
+
     localStorage.setItem(
       "bookingInfo",
       JSON.stringify({
@@ -39,8 +54,9 @@ const BookingSummary = () => {
         customer: "",
         professional: professional._id,
         service: servicesId,
-        products: productsId,
+        product: productsId,
         dateTime: d,
+        amount: total,
       })
     );
     if (localStorage.getItem("customerToken")) {
