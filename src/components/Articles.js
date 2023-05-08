@@ -1,39 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import articlesContext from "../context/ArticlesContext";
 
 const ArticlesSlider = () => {
-  const [articles, setArticles] = useState([
-    {
-      id: 1,
-      title: "The Benefits of Regular Exercise",
-      imageUrl: "https://via.placeholder.com/600x400",
-      author: "John Smith",
-      date: "January 1, 2022",
-    },
-    {
-      id: 2,
-      title: "Tips for Better Sleep",
-      imageUrl: "https://via.placeholder.com/600x400",
-      author: "Jane Doe",
-      date: "February 15, 2022",
-    },
-    {
-      id: 3,
-      title: "How to Manage Stress",
-      imageUrl: "https://via.placeholder.com/600x400",
-      author: "Bob Johnson",
-      date: "March 31, 2022",
-    },
-    {
-      id: 4,
-      title: "The Importance of a Balanced Diet",
-      imageUrl: "https://via.placeholder.com/600x400",
-      author: "Samantha Lee",
-      date: "April 18, 2022",
-    },
-  ]);
+  const { articlesData } = useContext(articlesContext);
+  console.log(articlesData);
 
   const settings = {
     dots: true,
@@ -56,12 +29,12 @@ const ArticlesSlider = () => {
     <div className="container mx-auto px-4 py-8 overflow-x-hidden">
       <h2 className="text-2xl font-bold mb-4">Articles</h2>
       <Slider {...settings}>
-        {articles.map((article) => (
-          <div key={article.id} className="px-2">
+        {articlesData.map((article) => (
+          <div key={article._id} className="px-2">
             <div className="border rounded-lg overflow-hidden">
               <img
                 className="w-full"
-                src={article.imageUrl}
+                src={`http://localhost:4040/uploads/admin/${article.image}`}
                 alt={article.title}
               />
               <div className="px-4 py-2">
