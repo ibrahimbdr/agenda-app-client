@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 const BookingDate = () => {
-  const [selectedDate, setSelectedDate] = useState();
+  const [selectedDate, setSelectedDate] = useState(null);
   const params = useParams();
   const navigate = useNavigate();
+  console.log(navigate);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,36 +15,34 @@ const BookingDate = () => {
     localStorage.setItem("selectedDate", selectedDate);
     navigate(`/shops/${params.id}/booking-hour`);
     // Implement logic to check if the selected date has any reserved appointments
-    // If there are reserved appointments, show them in a div next to the date picker
-    // If there are no reserved appointments, show a message saying "No Appointments"
+    // If there are reserved appointments, handle them accordingly
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-3">
       <h1 className="text-5xl font-extrabold mb-8 text-gray-900">
         Select a Date
       </h1>
       <form
-        onSubmit={(event) => handleSubmit(event)}
+        onSubmit={handleSubmit}
         className="bg-white rounded-lg shadow-lg p-8"
       >
-        <div className="flex flex-wrap justify-center">
-          <div className="w-96 p-4">
+        <div className="flex justify-center">
+          <div className="p-8 flex justify-center">
             <DatePicker
               selected={selectedDate}
               onChange={(date) => setSelectedDate(date)}
               inline
               calendarClassName="rounded-lg shadow-md p-4"
+              dateFormat="MMMM d, yyyy"
+              placeholderText="Select a date"
+              isClearable
+              showYearDropdown
+              scrollableYearDropdown
+              yearDropdownItemNumber={10}
+              // fixedHeight
             />
           </div>
-          {selectedDate && (
-            <div className="bg-gray-200 rounded-md p-4 flex-1">
-              <p className="text-lg font-semibold mb-2">
-                Reserved Appointments:
-              </p>
-              <p>No Appointments</p>
-            </div>
-          )}
         </div>
         {selectedDate && (
           <button
