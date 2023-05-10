@@ -73,12 +73,17 @@ const BookingService = () => {
             onClick={() => handleServiceSelection(service)}
           >
             {service.serviceImg ? (
-              <div
-                className="w-[150px] h-[150px] bg-no-repeat bg-cover bg-center"
-                style={{
-                  backgroundImage: `url(http://localhost:4040/uploads/services/${service.serviceImg})`,
-                }}
-              ></div>
+              // <div
+              //   className="h-[200px] w-[200px] bg-no-repeat bg-center"
+              //   style={{
+              //     backgroundImage: `url(http://localhost:4040/uploads/services/${service.serviceImg})`,
+              //   }}
+              // ></div>
+              <img
+                src={`http://localhost:4040/uploads/services/${service.serviceImg}`}
+                alt={service.name}
+                className="h-48 w-full  rounded-t-lg object-cover"
+              />
             ) : (
               <img
                 src="https://via.placeholder.com/150"

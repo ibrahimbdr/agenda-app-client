@@ -67,12 +67,17 @@ const BuyProduct = () => {
             onClick={() => handleProductSelection(product)}
           >
             {product.productImg ? (
-              <div
-                className="w-[150px] h-[150px] bg-no-repeat bg-cover bg-center"
-                style={{
-                  backgroundImage: `url(http://localhost:4040/uploads/products/${product.serviceImg})`,
-                }}
-              ></div>
+              //   <div
+              //     className="w-[150px] h-[150px] bg-no-repeat bg-cover bg-center"
+              //     style={{
+              //       backgroundImage: `url(http://localhost:4040/uploads/products/${product.productImg})`,
+              //     }}
+              //   ></div>
+              <img
+                src={`http://localhost:4040/uploads/products/${product.productImg}`}
+                alt={product.name}
+                className="h-48 w-full  rounded-t-lg object-cover"
+              />
             ) : (
               <img
                 src="https://via.placeholder.com/150"
