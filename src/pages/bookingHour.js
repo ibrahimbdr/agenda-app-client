@@ -1,34 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import instance from "../axiosConfig/axiosConfig";
 
 const BookingHour = () => {
   const [selectedHour, setSelectedHour] = useState(null);
   const [isHourSelected, setIsHourSelected] = useState(false);
+  const [reservedAppt, setReservedAppt] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
+
   const handleHourChange = (event) => {
     setSelectedHour(event.target.value);
     setIsHourSelected(true);
   };
-  const hours = [
-    "09:00",
-    "09:30",
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
-    "12:00",
-    "12:30",
-    "13:00",
-    "13:30",
-    "14:00",
-    "14:30",
-    "15:00",
-    "15:30",
-    "16:00",
-    "16:30",
-    "17:00",
-  ];
+
+  useEffect(() => {
+    instance
+      .get(`/managers/shopname?urlSlug=${params.id}`)
+      .then((response) => {
+        console.log(response.data);
+        // setShopName(response.data.shopName);
+        instance
+          .get(`/appointments?shopName=${response.data.shopName}`)
+          .then((response) => {
+            let apptDates = [];
+            response.data.appointments.map((appt) => {
+              apptDates.push(new Date(appt.dateTime));
+            });
+            setReservedAppt(apptDates);
+            console.log(apptDates);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const date = localStorage.getItem("selectedDate");
+  const hours = useMemo(() => {
+    const arr = [];
+    for (let i = 1; i <= 9; i++) {
+      let d = i + 8;
+      let d1 = new Date(date);
+      d1.setHours(d);
+      d1.setMinutes(0);
+      d1.setSeconds(0);
+      let d2 = new Date(d1);
+      d2.setMinutes(30);
+
+      if (i === 9) {
+        arr.push(d1);
+      } else {
+        arr.push(d1, d2);
+      }
+    }
+    return arr;
+  }, [date]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -54,6 +84,8 @@ const BookingHour = () => {
       >
         <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
           {hours.map((hour, index) => {
+            const today = new Date();
+
             return (
               <button
                 key={index}
@@ -62,8 +94,12 @@ const BookingHour = () => {
                   selectedHour === hour ? "ring-2 ring-indigo-500" : ""
                 } bg-white hover:bg-gray-100 text-gray-900 font-semibold py-4 px-6 border rounded-lg text-center text-xl`}
                 onClick={() => handleHourChange({ target: { value: hour } })}
+                disabled={hour < today || reservedAppt.includes(hour)}
               >
-                {hour}
+                {hour.toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </button>
             );
           })}
