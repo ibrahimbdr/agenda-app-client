@@ -45,7 +45,7 @@ const BuyProduct = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-3">
       <h1 className="text-5xl font-extrabold mb-8 text-gray-900">
         Buy a Product
       </h1>
@@ -66,16 +66,20 @@ const BuyProduct = () => {
             }`}
             onClick={() => handleProductSelection(product)}
           >
-            {/* <img
-              src={product.image}
-              alt={product.name}
-              className="h-48 w-full  rounded-t-lg object-cover"
-            /> */}
-            <img
-              src="https://via.placeholder.com/150"
-              alt={product.name}
-              className="h-48 w-full rounded-t-lg object-cover"
-            />
+            {product.productImg ? (
+              <div
+                className="w-[150px] h-[150px] bg-no-repeat bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(http://localhost:4040/uploads/products/${product.serviceImg})`,
+                }}
+              ></div>
+            ) : (
+              <img
+                src="https://via.placeholder.com/150"
+                alt={product.name}
+                className="h-48 w-full  rounded-t-lg object-cover"
+              />
+            )}
             <div className="p-4">
               <h2 className="text-xl font-medium text-gray-900">
                 {product.name}

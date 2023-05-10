@@ -51,7 +51,7 @@ const BookingService = () => {
   // ];
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-3">
       <h1 className="text-5xl font-extrabold mb-8 text-gray-900">
         Choose a Service
       </h1>
@@ -72,11 +72,20 @@ const BookingService = () => {
             }`}
             onClick={() => handleServiceSelection(service)}
           >
-            <img
-              src="https://via.placeholder.com/150"
-              alt={service.name}
-              className="h-48 w-full  rounded-t-lg object-cover"
-            />
+            {service.serviceImg ? (
+              <div
+                className="w-[150px] h-[150px] bg-no-repeat bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(http://localhost:4040/uploads/services/${service.serviceImg})`,
+                }}
+              ></div>
+            ) : (
+              <img
+                src="https://via.placeholder.com/150"
+                alt={service.name}
+                className="h-48 w-full  rounded-t-lg object-cover"
+              />
+            )}
             <div className="p-4">
               <h2 className="text-xl font-medium text-gray-900">
                 {service.name}

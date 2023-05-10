@@ -13,14 +13,15 @@ const Booking = () => {
     });
   }, []);
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-3">
       <div className="max-w-sm rounded overflow-hidden shadow-lg mb-4">
         {currentShop.profileImg ? (
-          <img
-            className="w-[300px] h-[200px]"
-            src={`http://localhost:4040/uploads/profile/${currentShop.profileImg}`}
-            alt={currentShop.shopName}
-          />
+          <div
+            className="w-[300px] h-[200px] bg-no-repeat bg-cover bg-center"
+            style={{
+              backgroundImage: `url(http://localhost:4040/uploads/profile/${currentShop.profileImg})`,
+            }}
+          ></div>
         ) : (
           <img
             className="w-full"
@@ -30,11 +31,11 @@ const Booking = () => {
         )}
       </div>
       <h1 className="text-5xl font-extrabold mb-8 text-gray-900">
-        Start Booking Now !
+        Start Booking Now!
       </h1>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center space-x-4">
         <Link to={`/shops/${params.id}/booking-service`}>
-          <button className="bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-medium py-4 px-8 rounded-full mr-6 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <button className="bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-medium py-4 px-8 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Book Now
           </button>
         </Link>

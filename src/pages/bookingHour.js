@@ -65,10 +65,11 @@ const BookingHour = () => {
     console.log(`Hour selected: ${selectedHour}`);
     const selectedDate = localStorage.getItem("selectedDate");
     const d = new Date(selectedDate);
-    const timeArr = selectedHour.split(":");
-    d.setHours(+timeArr[0]);
-    d.setMinutes(+timeArr[1]);
-    localStorage.setItem("dateTime", d);
+
+    // const timeArr = selectedHour.split(":");
+    // d.setHours(+timeArr[0]);
+    // d.setMinutes(+timeArr[1]);
+    localStorage.setItem("dateTime", selectedHour);
     navigate(`/shops/${params.id}/buy-product`);
     // Implement booking logic here
   };

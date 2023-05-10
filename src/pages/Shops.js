@@ -69,54 +69,39 @@ const ShopSelection = () => {
   };
 
   return (
-    <div className="pt-24 h-screen bg-gray-100 overflow-auto">
-      <div className="flex flex-col h-full justify-center items-center">
-        <h1 className="text-center text-5xl font-extrabold mb-8 text-gray-900">
+    <div className="bg-gray-100 min-h-screen">
+      <div className="container mx-auto pt-10">
+        <h1 className="text-5xl font-extrabold text-center text-gray-900 mb-8">
           Choose a Shop
         </h1>
-
         <div className="flex items-center justify-center mb-4">
           <input
             type="text"
             placeholder="Search shops"
             value={searchQuery}
             onChange={handleSearchQueryChange}
-            className="py-2 px-4 rounded-md border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="py-2 px-4 sm:w-64 rounded-md border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
           <FaSearch className="ml-2 text-gray-500" />
         </div>
 
-        <div
-          className={`grid grid-cols-1 ${
-            currentShops.length > 1 && "sm:grid-cols-2"
-          } ${
-            currentShops.length > 3 && "lg:grid-cols-4"
-          } gap-4 justify-items-center`}
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 px-4">
           {currentShops.map((shop, index) => (
-            // <div
-            //   key={index}
-            //   className={`max-w-sm rounded overflow-hidden shadow-lg cursor-pointer
-            //   ${selectedShop.id === shop.id ? "ring-2 ring-indigo-500" : ""}
-            //   `}
-            //   onClick={() => handleShopSelection(shop)}
-            // >
             <div
               key={index}
-              className={`max-w-sm rounded overflow-hidden shadow-lg cursor-pointer 
-              
-              `}
+              className="max-w-sm rounded overflow-hidden shadow-lg cursor-pointer mx-auto w-full"
               onClick={() => handleShopSelection(shop)}
             >
               {shop.profileImg ? (
-                <img
-                  className="w-[300px] h-[200px]"
-                  src={`http://localhost:4040/uploads/profile/${shop.profileImg}`}
-                  alt={shop.shopName}
-                />
+                <div
+                  className="w-full h-40 bg-no-repeat bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(http://localhost:4040/uploads/profile/${shop.profileImg})`,
+                  }}
+                ></div>
               ) : (
                 <img
-                  className="w-full"
+                  className="w-full h-40"
                   src="https://placehold.it/300x200"
                   alt="shop name"
                 />
@@ -129,7 +114,7 @@ const ShopSelection = () => {
           ))}
         </div>
         {currentShops.length === 0 && (
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center mt-8">
             <div className="mb-4">
               <svg
                 className="h-16 w-16 text-gray-400"
@@ -149,7 +134,7 @@ const ShopSelection = () => {
             </p>
           </div>
         )}
-        <nav className="flex justify-center mt-4 pb-5 bg-gray-100">
+        <nav className="flex justify-center mt-4 pb-5">
           <button
             onClick={handlePrevClick}
             className={`${
@@ -164,19 +149,18 @@ const ShopSelection = () => {
               key={number}
               onClick={(event) => handlePageChange(event, number)}
               className={`
-            ${
-              currentPage === number
-                ? "bg-indigo-600 text-white"
-                : "bg-white text-gray-500 hover:bg-gray-50"
-            }
-            
-            border border-gray-300
-            font-medium
-            py-2 px-4
-            focus:outline-none
-            focus:ring-offset-2
-            focus:ring-indigo-500
-          `}
+                ${
+                  currentPage === number
+                    ? "bg-indigo-600 text-white"
+                    : "bg-white text-gray-500 hover:bg-gray-50"
+                }
+                border border-gray-300
+                font-medium
+                py-2 px-4
+                focus:outline-none
+                focus:ring-offset-2
+                focus:ring-indigo-500
+              `}
             >
               {number}
             </button>
@@ -204,4 +188,5 @@ const ShopSelection = () => {
     </div>
   );
 };
+
 export default ShopSelection;
